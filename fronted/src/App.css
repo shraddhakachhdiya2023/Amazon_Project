@@ -1,0 +1,77 @@
+.header,
+.footer {
+  z-index: 1001;
+  position: relative;
+}
+
+ 
+
+/* Responsive  */
+
+
+
+/* Product Imges */
+.img_div {
+  height: 350px;
+  width: auto;
+  overflow: hidden;
+  /* transition: all 1s ease-in-out; */
+}
+
+.img_div img {
+  max-width: 100%;
+  max-height: 80%;
+  transition: all .5s ease-in-out;
+}
+
+.img_div img:hover {
+  transform: scale(1.2);
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+a:hover {
+  color: black;
+  text-decoration: none;
+}
+
+.link {
+  color: blue;
+}
+
+
+i {
+  color: #e8ba3e !important;
+}
+
+.card-body {
+  background: rgb(255, 255, 255) !important;
+}
+
+.cards {
+  background-color: rgb(238, 236, 236) !important;
+  /* background-color: rgb(212, 210, 210) !important; */
+}
+
+input {
+  width: 100%;
+  padding: .5rem 1rem;
+  outline: none;
+}
+
+.login .card-body {
+  background-color: #fff !important;
+}
+
+.payment input {
+  color: #e8ba3e;
+  height: 1.25rem;
+  width: 1.25rem;
+}
+
+#specifyColor {
+  accent-color: rgb(255, 0, 68);
+}
