@@ -9,11 +9,17 @@ class ApiHelper {
         this.token = JSON.parse(localStorage.getItem("token"))
     }
 
+    // fetchProduct() {
+    //     return axios.get(this.baseurl + '/product')
+    // }
     fetchProduct() {
-        return axios.get(this.baseurl + '/product')
+        return axios.get(this.baseurl + '/admin/getproduct')
     }
+    // fetchProductById(id) {
+    //     return axios.get(this.baseurl + '/product/' + id)
+    // }
     fetchProductById(id) {
-        return axios.get(this.baseurl + '/product/' + id)
+        return axios.get(this.baseurl + '/admin/editproduct/' + id)
     }
 
     userLogin(data) {
@@ -28,11 +34,13 @@ class ApiHelper {
     }
 
     placeOrder(order) {
-        return axios.post(`${this.baseurl}/orderauth`,order, { headers: { token: this.token } })
+        this.token = JSON.parse(localStorage.getItem("token"))
+        return axios.post(`${this.baseurl}/orderauth`, order, { headers: { token: this.token } })
     }
 
-    paymentVerify(details){
-        return axios.post(`${this.baseurl}/payment/verify`,details,{headers:{token:this.token}})
+    paymentVerify(details) {
+        this.token = JSON.parse(localStorage.getItem("token"))
+        return axios.post(`${this.baseurl}/payment/verify`, details, { headers: { token: this.token } })
     }
 
 }

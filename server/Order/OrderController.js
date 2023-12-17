@@ -95,7 +95,7 @@ class OrderController {
     async GetOrder(req, res) {
         try {
             const result = await OrderModel.find({ "user._id": req.body.userInfo._id })
-            console.log(result)
+            // console.log(result)S
             if (result) return res.status(200).send({
                 message: "Sucess", order: result
             })
@@ -107,6 +107,21 @@ class OrderController {
         }
     }
 
+    async getOrders(req, res) {
+        try {
+          
+            const result = await OrderModel.find()
+            console.log(result)
+            if (result) {
+                return res.status(200).send({ message: "sucess", order: result })
+            }
+            return res.status(500).send({ message: 'something went wrong' })
+
+        } catch (error) {
+            console.log(error)
+            return res.status(500).send({ message: "internal server error" })
+        }
+    }
     async getOrderByID(req, res) {
         try {
             const { id } = req.params

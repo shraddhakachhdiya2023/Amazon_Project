@@ -71,7 +71,7 @@ export default function PlaceOrder(props) {
             return Item.countInStock > 0
         })
 
-
+console.log(cart)
 
         //    cartItem_id  == InstockItems_id match compare
 
@@ -236,7 +236,7 @@ export default function PlaceOrder(props) {
                                                                                     <div className="d-flex flex-row align-items-center text-center  justify-content-between  ">
                                                                                         <div >
                                                                                             <img
-                                                                                                src={x.image}
+                                                                                                src={x?.image?.url}
                                                                                                 className="img-fluid rounded-3" alt="Shopping item" style={{ height: "5rem" }} />
                                                                                         </div>
                                                                                         {/* <div className="ms-3 ">

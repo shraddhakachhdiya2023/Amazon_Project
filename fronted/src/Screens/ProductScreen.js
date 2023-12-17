@@ -17,19 +17,23 @@ export default function ProductScreen(props) {
     const [product, setProduct] = useState([])
     const [isLoading, setisLoading] = useState(false)
     const [count, setCounter] = useState(0)
-    let [mainImage, setmainImage] = useState(product.image)
+    let [mainImage, setmainImage] = useState()
 
-    // const cartItems = JSON.parse(localStorage.getItem("cartItems") || '[]')
-
+    const imageUrl = product.image ? product.image.url : "";
+    // console.log(count)
 
     const Getproduct = async () => {
         try {
             setisLoading(true)
 
             const result = await apiHelper.fetchProductById(id)
-            setProduct(result.data.Product)
 
-            setisLoading(false)
+            if (result.status === 200) {
+                setProduct(result.data.Product)
+                // setmainImage(result.data.Product.image?.url || ''); 
+                setisLoading(false)
+            }
+
 
         } catch (error) {
             setisLoading(false)
@@ -51,12 +55,10 @@ export default function ProductScreen(props) {
     useEffect(() => {
         setCounter(product.countInStock && product.countInStock > 0 ? 1 : 0)
 
-
-        // console.log(mainImage)
-        // console.log(product.image)
-        if (product.image) {
-            setmainImage(product.image);
+        if (imageUrl) {
+            setmainImage(imageUrl);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [product])
 
     const AddToCart = () => {
@@ -66,15 +68,18 @@ export default function ProductScreen(props) {
         }
         // prodct id check for cartscreen
         const findIndex = cartItems.findIndex((x) => x.product === id)
-        // console.log(findIndex)
+        console.log(findIndex)
         if (findIndex > -1) {
             cartItems[findIndex].count = cart.count
         } else {
             cartItems.push(cart)
         }
-        // console.log(findIndex)
+
+        // cartitems for local stroage set itmeans add product 
+        // console.log(cartItems)
         localStorage.setItem("cartItems", JSON.stringify(cartItems))
         setCartItems(cartItems)
+
         navigate("/cart")
     }
 
@@ -87,7 +92,7 @@ export default function ProductScreen(props) {
             <Loader isLoading={isLoading} />
             <div className="row mt-4 d-flex flex-wrap" >
                 <div className="col-12 col-md-4 " >
-                    <div className="img border border-3" style={{objectFit:"cover"}}>
+                    <div className="img border border-3" style={{ objectFit: "cover" }}>
 
                         <ReactImageMagnify {...{
                             smallImage: {
@@ -159,21 +164,24 @@ export default function ProductScreen(props) {
 
 
             <div className="row mt-5 mb-5">
-                <div className="col-4 d-flex  justify-content-center flex-wrap">
-                    <div className="col ">
-                        <img className=" border border-1 rounded-2" src={product.image} width="70" height="70" alt="" onClick={() => setmainImage(product.image)}></img>
-                    </div>
-                    <div className="col ">
-                        <img className=" border border-1 rounded-2" src={product.image2} width="70" height="70" alt="" onClick={() => setmainImage(product.image2)}></img>
-                    </div>
-                    <div className="col ">
-                        <img className=" border border-1 rounded-2" src={product.image3} width="70" height="70" alt="" onClick={() => setmainImage(product.image3)}></img>
-                    </div>
-                    <div className="col ">
-                        <img className=" border border-1 rounded-2" src={product.image4} width="70" height="70" alt="" onClick={() => setmainImage(product.image4)}></img>
-                    </div>
 
+                <div className="col-4 d-flex justify-content-center flex-wrap">
+                    {product.RelevantImages && product.RelevantImages.map((image, index) => (
+               
+                        <div className="col" key={index}>
+                        
+                            <img
+                                className="border border-1 rounded-2"
+                                src={image.url}
+                                width="70"
+                                height="70"
+                                alt=""
+                                onClick={() => setmainImage(image.url)}
+                            />
+                        </div>
+                    ))}
                 </div>
+        \
             </div>
 
         </div>

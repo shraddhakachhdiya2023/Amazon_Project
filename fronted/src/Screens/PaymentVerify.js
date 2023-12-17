@@ -30,6 +30,7 @@ const HandlePayment = async (paymentOptions) => {
                 try {
                     const result = await apiHelper.paymentVerify({ razorpay_payment_id: response.razorpay_payment_id, orderId: paymentOptions.orderId, razorpayOrderId: paymentOptions.razorpayOrderId })
                     if (result && result.status === 200) {
+                        // paymentOptions.navigate(`/`)
                         paymentOptions.navigate(`/order/${result.data.orderId}`)
                     }
                 } catch (error) {

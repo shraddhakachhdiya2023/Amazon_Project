@@ -134,7 +134,6 @@ export default function LoginScreen(props) {
                                             setLoginError(ValidationResult)
                                         }
 
-
                                     }}
                                     value={user.password}
                                     isError={LoginError.find((x) => x.key === "password") ? true : false}

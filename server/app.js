@@ -6,8 +6,13 @@ import uerController from "./User/UserController.js";
 import { } from "dotenv/config.js"
 import Authentication from "./Auth/Auth.js";
 import orderController from "./Order/OrderController.js";
-import AdminRouter from "./Admin/AdminUser/AdminUserRouter.js";
 import fileUpload from "express-fileupload";
+import AdminMediaRouter from "./Admin/Media/AdminMediaRouter.js";
+import AdminRouterUser from "./Admin/AdminUser/AdminUserRouter.js";
+import AdminProductRouter from "./Admin/AdminProduct/ProductRouter.js";
+import CategroyRouter from "./Admin/AdminCategries/CategroyRouter.js";
+import AdminProductController from "./Admin/AdminProduct/ProductController.js";
+
 
 
 
@@ -23,13 +28,17 @@ app.get("/", (req, res) => {
     return res.status(200).send({ message: "success" })
 });
 
-app.use("/admin", AdminRouter)
+app.use("/admin", AdminRouterUser)
+app.use("/admin", AdminMediaRouter)
+app.use("/admin", AdminProductRouter)
+app.use("/admin", CategroyRouter)
+
 
 app.get("/product", productController.getProducts)
 
 app.get("/product/:id", productController.getProductByID)
 
-app.post("/cart", productController.Getcart)
+app.post("/cart", AdminProductController.Getcart)    //admin
 // app.post("/user",uerController.addUser)
 
 // app.get("/product/insert/many", productController.insertMany)
@@ -42,13 +51,15 @@ app.post("/orderauth", Authentication.CreateOrderAuth, orderController.createOrd
 
 app.get("/order", Authentication.CreateOrderAuth, orderController.GetOrder)
 
+app.get("/orders", orderController.getOrders)
+
 app.get("/order/:id", orderController.getOrderByID)
 
 app.post("/payment/verify", Authentication.CreateOrderAuth, orderController.PaymentVerify)
 
 
 
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT, () => {   //5000
     console.log("Server started");
 })
 

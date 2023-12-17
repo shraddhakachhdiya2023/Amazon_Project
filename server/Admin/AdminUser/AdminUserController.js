@@ -23,7 +23,7 @@ class AdminUserController {
 
             req.body.password = EncodePassword
             const result = await adminUserModal.create(req.body)
-            console.log(result)
+
             if (!result) {
                 return res.status(500).send({ message: "Somthing went wrong" })
             }
@@ -97,9 +97,12 @@ class AdminUserController {
 
     async removeUser(req, res) {
         try {
-            const result = await adminUserModal.deleteOne({ _id: req.params.id })
+            const userId = req.params.id
+            console.log(userId)
+            const result = await adminUserModal.deleteOne({ _id: userId })
+            console.log(result)
             if (result) return res.status(200).send({ message: "Success" })
-            return res.status(500).send({ message: "Somthing went wrong" })
+            return res.status(400).send({ message: "Somthing went wrong" })
         } catch (error) {
             console.log(error)
             return res.status(500).send({ message: "Internal Server error" })
@@ -111,8 +114,9 @@ class AdminUserController {
         try {
             const id = req.params.id
             const body = req.body
-            const result = await adminUserModal.updateOne({ _id: id }, body)
             console.log(body)
+            const result = await adminUserModal.updateOne({ _id: id }, body)
+            console.log(result)
             if (result.modifiedCount > 0 || result.matchedCount > 0) return res.status(200).send({ message: "Success" })
 
             return res.status(400).send({ message: "Somthing went wrong" })

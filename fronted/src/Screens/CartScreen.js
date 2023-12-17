@@ -23,8 +23,7 @@ export default function CartScreen(props) {
 
     })
 
-// console.log(SummaryDetails)
-// console.log(cart)
+
 
 
     useEffect(() => {
@@ -57,51 +56,49 @@ export default function CartScreen(props) {
 
 
     const getCart = async () => {
-        setisLoading(true)
-        const products = cartItems.map((x) => x.product)
-        // console.log(products)  //product id male 6
-        const result = await apiHelper.fetchCart(products)
-        // console.log(result)  //axios data backend thorogh
-
-        // stock outinstock after day to cart screen inform
-
-        const InstockItems = result?.data?.products
-        // console.log(InstockItems)  //backend mathi products
-        // const InstockItems = result.data.products.filter((Item) => {
-        // return Item.countInStock > 0 ? (
-
-        //     <span className="fs-6 success" style={{ color: '#20a020' }}>In stock</span>
-        // ) : (
-        //     <span className="fs-6 error" style={{ color: '#a02020' }}>Out of stock</span>
-
-        // )
-        // })
-
-
-
-        //    cartItem_id  == InstockItems_id match compare
-
-        let i = 0
-        while (i < cartItems.length) {
-
-            let j = 0
-            while (j < InstockItems.length) {
-                if (cartItems[i].product === InstockItems[j]._id) {
-                    InstockItems[j].count = cartItems[i].count
-                }
-                j++
-            }
-            i++
-
-        }
-        // console.log(cartItems)
-
-        setcart(InstockItems)
-        // console.log(InstockItems)
-        setisLoading(false)
-
-
         try {
+            setisLoading(true)
+            const products = cartItems.map((x) => x.product)
+            // console.log(products)  //product id male 6
+            const result = await apiHelper.fetchCart(products)
+            // console.log(result)  //axios data backend thorogh
+
+            // stock outinstock after day to cart screen inform
+
+            const InstockItems = result?.data?.products
+            // console.log(InstockItems)  //backend mathi products
+            // const InstockItems = result.data.products.filter((Item) => {
+            // return Item.countInStock > 0 ? (
+
+            //     <span className="fs-6 success" style={{ color: '#20a020' }}>In stock</span>
+            // ) : (
+            //     <span className="fs-6 error" style={{ color: '#a02020' }}>Out of stock</span>
+
+            // )
+            // })
+
+
+
+            //    cartItem_id  == InstockItems_id match compare
+
+            let i = 0
+            while (i < cartItems.length) {
+
+                let j = 0
+                while (j < InstockItems.length) {
+                    if (cartItems[i].product === InstockItems[j]._id) {
+                        InstockItems[j].count = cartItems[i].count
+                    }
+                    j++
+                }
+                i++
+
+            }
+            console.log(cartItems)
+
+            setcart(InstockItems)
+            console.log(InstockItems)
+            setisLoading(false)
         } catch (error) {
             setisLoading(false)
             if (error.response && error.response.data && error.response.data.message) {
@@ -117,8 +114,8 @@ export default function CartScreen(props) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    
-    
+
+
 
     const RemoveHandler = (id) => {
         cartItems = cartItems.filter((x) => x.product !== id)
@@ -178,11 +175,11 @@ export default function CartScreen(props) {
                                     return (
                                         <div className="card-body" key={key} >
 
-                                            <div  className="row mt-4">
+                                            <div className="row mt-4">
                                                 <div className="col-lg-3 col-md-12  mb-lg-0">
 
                                                     <div className="bg-image hover-overlay hover-zoom ripple rounded" >
-                                                        <img src={x.image} className="w-75" alt="Blue Jeans Jacket" />
+                                                        <img src={x?.image?.url} className="w-75" alt="Blue Jeans Jacket" />
 
                                                     </div>
 

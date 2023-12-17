@@ -1,21 +1,23 @@
 import express from "express";
 import admminUserController from "./AdminUserController.js";
-import mediaController from "../Media/MediaController.js";
-
-const AdminRouter = express.Router()
-
-AdminRouter.post("/upload", mediaController.Getmedia)
-AdminRouter.get("/show", mediaController.ShowMedia)
-
-AdminRouter.post("/adduser", admminUserController.CreateAdminUser)
-
-AdminRouter.post("/login", admminUserController.AdminLogin)
-
-AdminRouter.get("/getuser", admminUserController.GetAdminUser)
-
-AdminRouter.delete("/remove/:id", admminUserController.removeUser)
-
-AdminRouter.put("/update/user/:id", admminUserController.updateUser)
 
 
-export default AdminRouter
+const AdminRouterUser = express.Router()
+
+
+
+AdminRouterUser.post("/adduser", admminUserController.CreateAdminUser) // register user data add
+
+AdminRouterUser.post("/login", admminUserController.AdminLogin)         // login user data add
+
+AdminRouterUser.get("/getuser", admminUserController.GetAdminUser)      // user data get client side
+
+AdminRouterUser.delete("/remove/:id", admminUserController.removeUser)      //user data delete for database
+
+AdminRouterUser.put("/update/user/:id", admminUserController.updateUser)        // update
+
+
+
+
+
+export default AdminRouterUser

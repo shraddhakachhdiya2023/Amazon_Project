@@ -4,12 +4,14 @@ import FormatPrice from "../common/FormatPrice"
 
 export default function ProductCard(props) {
     const { product } = props
+    const imageUrl = product.image ? product.image.url : "";
 
     return (
         <div className="card shadow mt-5 " style={{ width: "18rem" }}>
             <div className="img_div img-fluid">
                 <Link to={`/product/${product._id}`} className="d-block mb-3">
-                    <img src={product.image} className="card-img-top images " alt="..." />
+                    <img src={imageUrl} className="card-img-top images " alt="..." />
+                    {/* <img src={product.image} className="card-img-top images " alt="..." /> */}
                 </Link>
 
             </div>
